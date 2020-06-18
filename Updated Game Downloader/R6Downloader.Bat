@@ -46,7 +46,7 @@ if %second%==%first% (
 cls
 MODE CON COLS=103 LINES=13
 echo                                    Rainbow Six Siege Downloader
-echo                 For any help/feedback join us on our Discord: https://discord.gg/mJKgGQe
+echo                 For any help/feedback join us on our Discord: https://discord.gg/FJccJNd
 echo                                   You need to own a Steam copy!
 echo.
 echo -------------------------------------------------------------------------------------------------------
