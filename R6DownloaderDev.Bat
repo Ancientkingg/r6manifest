@@ -1,4 +1,4 @@
-::1.1
+::Dev
 @echo off
 setlocal enableextensions
 
@@ -12,7 +12,7 @@ if not exist .Assets (
     mkdir .Assets
 )
 cd .Assets
-curl -s -L "https://raw.githubusercontent.com/Ancientkingg/r6manifest/master/R6Downloader.Bat" --output dontget.rickrolled
+curl -s -L "https://raw.githubusercontent.com/Ancientkingg/r6manifest/master/R6DownloaderDev.Bat" --output dontget.rickrolled
 set /p first=< dontget.rickrolled
 del /f dontget.rickrolled 
 cd %rootdir%
@@ -36,7 +36,7 @@ if /I "%choice%"=="Y" goto update
 if /I "%choice%"=="N" goto mainmenu
 
 :update
-curl -L "https://raw.githubusercontent.com/Ancientkingg/r6manifest/master/R6Downloader.Bat" --output R6Downloader.bat
+curl -L "https://raw.githubusercontent.com/Ancientkingg/r6manifest/master/R6DownloaderDev.Bat" --output R6Downloader.bat
 ping localhost -n 2 >NUL
 cls
 echo Update completed! Please restart your R6Downloader...
