@@ -1,4 +1,4 @@
-::Dev1.0
+::Dev1.1
 @echo off
 setlocal enableextensions
 
@@ -36,7 +36,8 @@ if /I "%choice%"=="Y" goto update
 if /I "%choice%"=="N" goto mainmenu
 
 :update
-curl -L "https://raw.githubusercontent.com/Ancientkingg/r6manifest/master/R6DownloaderDev.Bat" --output R6Downloader.bat
+set output=%~nx0
+curl -L "https://raw.githubusercontent.com/Ancientkingg/r6manifest/master/R6DownloaderDev.Bat" --output %output%
 ping localhost -n 2 >NUL
 cls
 echo Update completed! Please restart your R6Downloader...
