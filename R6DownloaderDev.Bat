@@ -1,5 +1,5 @@
 ::Dev
-@echo off
+::@echo off
 setlocal enableextensions
 
 ::dotnetcheck
@@ -561,33 +561,31 @@ set /p version="Enter Version:"
 if /I %version%==back (
     cls
     goto mainmenu
-) else (
-    set /p username="Enter Steam Username:"
-)
+) 
 
 if %version%==0 (
     cls
     set dir=Y1S0_Original
-    if %depot%=359553 (
-        set manifest=3426628477659109421
+    if %depot%==359553 (
+        set manifest=940838089858119714
     )
-    if %depot%=359554 (
-        set manifest=3426628477659109421
+    if %depot%==359554 (
+        set manifest=7179158265062294015
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=3953006809848583127
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=6248979332984503061
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=4246528818872796970
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=3426628477659109421
     )
-     if %depot%=377236 (
-        set manifest=3426628477659109421
+     if %depot%==377236 (
+        set manifest=4326401341058506434
     )
     echo Y1S0 is selected!
     ping localhost -n 2 >NUL
@@ -595,25 +593,26 @@ if %version%==0 (
 if %version%==1 (
     cls
     set dir=Y1S1_BlackIce
-    if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     echo Y1S1 BlackIce is selected!
@@ -622,25 +621,26 @@ if %version%==1 (
 if %version%==2 (
     cls
     set dir=Y1S2_DustLine
-    if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     echo Y1S2 Dustline is selected!
@@ -649,25 +649,26 @@ if %version%==2 (
 if %version%==3 (
     cls
     set dir=Y1S3_SkullRain
-    if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     echo Y1S3 Skull Rain is selected!
@@ -676,25 +677,26 @@ if %version%==3 (
 if %version%==4 (
     cls
     set dir=Y1S4_RedCrow
-    if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     echo Y1S4 Red Crow is selected!
@@ -703,25 +705,26 @@ if %version%==4 (
 if %version%==5 (
     cls
     set dir=Y2S1_VelvetShell
-    if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     echo Y2S1 Velvet Shell is selected!
@@ -730,25 +733,26 @@ if %version%==5 (
 if %version%==6 (
     cls
     set dir=Y2S2_Health
-    if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     echo Y2S2 Health is selected!
@@ -757,25 +761,25 @@ if %version%==6 (
 if %version%==7 (
     cls
     set dir=Y2S3_BloodOrchid
-    if %depot%=359553 (
+    if %depot%==359553 (
         set manifest=838721240709370593
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=517536193576958217
     )
-    if %depot%=359555 (
-        set manifest=3426628477659109421
+    if %depot%==359555 (
+        set manifest=3953006809848583127
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=5021367039292610416
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=8777677445681226676
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=1264611426492480643
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=4326401341058506434
     )
     echo Y2S3 Blood Orchid is selected!
@@ -784,25 +788,26 @@ if %version%==7 (
 if %version%==8 (
     cls
     set dir=Y2S4_WhiteNoise
-    if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     echo Y2S4 White Noise is selected!
@@ -811,25 +816,26 @@ if %version%==8 (
 if %version%==9 (
     cls
     set dir=Y3S1_Chimera
-    if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
         set manifest=6830763708591031513
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=8951270584274959688
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=365667853833643908
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=723936785330189072
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=4967060442376701942
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=8184994692095456862
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=5994322749665877802
     )
     echo Y3S1 Chimera is selected!
@@ -838,25 +844,26 @@ if %version%==9 (
 if %version%==10 (
     cls
     set dir=Y3S2_ParaBellum
-    if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     echo Y3S2 is selected!
@@ -865,25 +872,26 @@ if %version%==10 (
 if %version%==11 (
     cls
     set dir=Y3S3_GrimSky
-    if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     echo Y3S3 Grim Sky is selected!
@@ -892,65 +900,66 @@ if %version%==11 (
 if %version%==12 (
     cls
     set dir=Y3S4_WindBastion
-    if %depot%=359553 (
-        if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
+        if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
-        set manifest=
-    )
-    )
-    if %depot%=359554 (
-        if %depot%=359553 (
-        set manifest=
-    )
-    if %depot%=359554 (
-        set manifest=
-    )
-    if %depot%=359555 (
-        set manifest=
-    )
-    if %depot%=359556 (
-        set manifest=
-    )
-    if %depot%=359557 (
-        set manifest=
-    )
-     if %depot%=377235 (
-        set manifest=
-    )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     )
-    if %depot%=359555 (
+    if %depot%==359554 (
+        if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359555 (
         set manifest=
     )
-     if %depot%=377235 (
+    if %depot%==359556 (
         set manifest=
     )
-     if %depot%=377236 (
+    if %depot%==359557 (
+        set manifest=
+    )
+     if %depot%==377235 (
+        set manifest=
+    )
+     if %depot%==377236 (
+        set manifest=
+    )
+    )
+    if %depot%==359555 (
+        set manifest=
+    )
+    if %depot%==359556 (
+        set manifest=
+    )
+    if %depot%==359557 (
+        set manifest=
+    )
+     if %depot%==377235 (
+        set manifest=
+    )
+     if %depot%==377236 (
         set manifest=
     )
     echo Y3S4 Wind Bastion is selected!
@@ -959,25 +968,25 @@ if %version%==12 (
 if %version%==13 (
     cls
     set dir=Y4S1_BurntHorizon
-    if %depot%=359553 (
+    if %depot%==359553 (
         set manifest=2489165098014835664
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=5912470135426316642
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=6166102473910342218
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=8980928302668128431
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=5742909617569886590
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=6205462284383635854
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=5305534200661405563
     )
     echo Y4S1 Burnt Horizon is selected!
@@ -986,25 +995,25 @@ if %version%==13 (
 if %version%==14 (
     cls
     set dir=Y4S2_PhantomSight
-    if %depot%=359553 (
+    if %depot%==359553 (
         set manifest=8209966773310799535
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=5551310338808720316
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=2945239480726569964
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=3119251800260595817
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=2060894578496472402
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=735237222551525964
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=8063779007427415388
     )
     echo Y4S2 Phantom Sight is selected!
@@ -1014,25 +1023,26 @@ if %version%==14 (
 if %version%==15 (
     cls
     set dir=Y4S3_EmberRise
-    if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     echo Y4S3 Ember Rise is selected!
@@ -1041,25 +1051,26 @@ if %version%==15 (
 if %version%==16 (
     cls
     set dir=Y4S4_ShiftingTides
-    if %depot%=359553 (
+    goto notsupported
+    if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     echo Y4S4 Shifting Tides is selected!
@@ -1068,31 +1079,33 @@ if %version%==16 (
 if %version%==17 (
     cls
     set dir=Y5S1_VoidEdge
-    if %depot%=359553 (
+    if %depot%==359553 (
         set manifest=
     )
-    if %depot%=359554 (
+    if %depot%==359554 (
         set manifest=
     )
-    if %depot%=359555 (
+    if %depot%==359555 (
         set manifest=
     )
-    if %depot%=359556 (
+    if %depot%==359556 (
         set manifest=
     )
-    if %depot%=359557 (
+    if %depot%==359557 (
         set manifest=
     )
-     if %depot%=377235 (
+     if %depot%==377235 (
         set manifest=
     )
-     if %depot%=377236 (
+     if %depot%==377236 (
         set manifest=
     )
     echo Y5S1 Void Edge is selected!
     ping localhost -n 2 >NUL
 )
 
+cls
+set /p username="Enter Steam Username:"
 dotnet DepotDownloader.dll -app 359550 -depot %depot% -manifest %manifest% -username %username% -remember-password -dir "Downloads\%dir%_Extra_Languages" -validate -max-servers 15 -max-downloads 10
 pause
 cls
@@ -1100,10 +1113,27 @@ echo Download complete!
     
 move Downloads\%dir%_Extra_Languages\sounddata\pc\*.* Downloads\%dir%\sounddata\pc
 rmdir /Q /S Downloads\%dir%_Extra_Languages
-goto :extralocalization
+goto extralocalization
 
 
+:notsupported
+cls
+MODE CON COLS=80 LINES=15
+echo.
+echo.
+echo Unfortunately %dir% has not been added yet!
+echo "       ,-,--.    _,.---._                                              "
+echo "     ,-.'-  _\ ,-.' , -  `.    .-.,.---.    .-.,.---.   ,--.-.  .-,--. "
+echo "    /==/_ ,_.'/==/_,  ,  - \  /==/  `   \  /==/  `   \ /==/- / /=/_ /  "
+echo "    \==\  \  |==|   .=.     ||==|-, .=., ||==|-, .=., |\==\, \/=/. /   "
+echo "     \==\ -\ |==|_ : ;=:  - ||==|   '='  /|==|   '='  / \==\  \/ -/    "
+echo "     _\==\ ,\|==| , '='     ||==|- ,   .' |==|- ,   .'   |==|  ,_/     "
+echo "    /==/\/ _ |\==\ -    ,_ / |==|_  . ,'. |==|_  . ,'.   \==\-, /      "
+echo "    \==\ - , / '.='. -   .'  /==/  /\ ,  )/==/  /\ ,  )  /==/._/       "
+echo "     `--`---'    `--`--''    `--`-`--`--' `--`-`--`--'   `--`-`        "
 
+pause
+goto mainmenu
 
 
 :hack
