@@ -1,5 +1,5 @@
 ::Dev
-::@echo off
+@echo off
 setlocal enableextensions
 
 ::dotnetcheck
