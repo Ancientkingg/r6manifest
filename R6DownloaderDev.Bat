@@ -649,27 +649,26 @@ if %version%==2 (
 if %version%==3 (
     cls
     set dir=Y1S3_SkullRain
-    goto notsupported
     if %depot%==359553 (
-        set manifest=
+        set manifest=5132022816747475711
     )
     if %depot%==359554 (
-        set manifest=
+        set manifest=1819965373025810009
     )
     if %depot%==359555 (
-        set manifest=
+        set manifest=1926652807113950777
     )
     if %depot%==359556 (
-        set manifest=
+        set manifest=3102063947541599011
     )
     if %depot%==359557 (
-        set manifest=
+        set manifest=1002387473375422601
     )
      if %depot%==377235 (
-        set manifest=
+        set manifest=4940468394032132183
     )
      if %depot%==377236 (
-        set manifest=
+        set manifest=792795160700208918
     )
     echo Y1S3 Skull Rain is selected!
     ping localhost -n 2 >NUL
