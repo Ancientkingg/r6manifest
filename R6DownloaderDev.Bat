@@ -3,6 +3,9 @@
 setlocal enableextensions
 set rootdir=%cd%
 
+if not exist .Assets (
+    mkdir .Assets
+)
 
 cd %temp%
 if not exist .Assets (
