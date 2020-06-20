@@ -1,12 +1,9 @@
-::Dev1.0
+::Dev1.1
 @echo off
 setlocal enableextensions
-
-::dotnetcheck
-:: if dotnet is not downloaded > go to ::downloaddotnet
-::depotdownloadercheck
-
 set rootdir=%cd%
+
+
 cd %temp%
 if not exist .Assets (
     mkdir .Assets
@@ -18,7 +15,7 @@ del /f dontget.rickrolled
 cd %rootdir%
 set /p second=< %~nx0
 if %second%==%first% (
-    goto mainmenu
+    goto dotnetcheck
 ) else (
     cls
     echo Update found!
@@ -33,7 +30,7 @@ echo It is recommended you update to the last version
 echo.
 set /p choice=An update has been found! Would you like to update now?[Y/N] 
 if /I "%choice%"=="Y" goto update
-if /I "%choice%"=="N" goto mainmenu
+if /I "%choice%"=="N" goto dotnetcheck
 
 :update
 set output=%~nx0
@@ -49,6 +46,70 @@ ping localhost -n 2 >NUL
 pause
 exit
 
+:dotnetcheck
+reg query "HKEY_LOCAL_MACHINE\SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedhost" /v Version 2>nul
+if errorlevel 1 (
+    goto downloaddotnet
+    
+) else (
+    goto 7zipcheck
+)
+
+:downloaddotnet 
+mode con: cols=10 lines=39
+echo --------------------------------------
+echo     .NET Core Runtime not detected
+echo --------------------------------------
+echo    Please install .NET Core Runtime
+echo   Then relaunch the game downloader!
+echo --------------------------------------
+start https://download.visualstudio.microsoft.com/download/pr/93d4ac87-6db0-4ddd-9bef-8050067b5e5d/605b178040bdd75b63d021d9387219ea/dotnet-runtime-3.1.4-win-x64.exe
+pause
+exit
+
+:7zipcheck
+Title R6 Manifest Tool - Checking 7zip....
+if exist ".Assets\7zip.exe" (
+goto depotcheck
+) else (
+    goto 7zipdownload
+)
+
+:7zipdownload
+Title R6 Game Downloader - 7zip not detected - Downloading 7zip...
+MODE 78,20
+echo ------------------------------------------------------------------------------
+echo                              Downloading 7-Zip...
+echo ------------------------------------------------------------------------------
+curl -L  "https://github.com/Ancientkingg/r6manifest/blob/master/7z.exe?raw=true" --output 7zip.exe
+move "7zip.exe" ".Assets"
+goto depotcheck
+)
+
+:depotcheck
+Title R6 Game Downloader - Checking Depot Downloader....
+cls
+if exist ".Assets\DepotDownloader\DepotDownloader.dll" (
+    goto mainmenu
+) else (
+  goto downloaddepotdownloader
+)
+
+:downloaddepotdownloader
+Title R6 Game Downloader - Depot Downloader not detected - Downloading Depot Downloader.....
+cls
+MODE 78,20
+echo ------------------------------------------------------------------------------
+echo                        Downloading DepotDownloader...
+echo ------------------------------------------------------------------------------
+curl -L  "https://github.com/Ancientkingg/r6manifest/raw/master/DepotD.zip" --output depotD.zip
+cls
+Title R6 Manifest Tool - Extracting Depot Downloader....
+for %%F in ("depotD.zip") do (
+  ".Assets\7zip.exe" x -y -o".Assets\DepotDownloader" "%%F" && del %%F
+cls
+goto depotcheck
+)
 
 
 :mainmenu
@@ -140,144 +201,144 @@ if /I %version%==back (
 )
 
 if %version%==0 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 8358812283631269928 -username %username% -remember-password -dir "Downloads\Y1S0_Original" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 3893422760579204530 -username %username% -remember-password -dir "Downloads\Y1S0_Original" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 8358812283631269928 -username %username% -remember-password -dir "Downloads\Y1S0_Original" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 3893422760579204530 -username %username% -remember-password -dir "Downloads\Y1S0_Original" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==1 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 5188997148801516344 -username %username% -remember-password -dir "Downloads\Y1S1_BlackIce" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 7932785808040895147 -username %username% -remember-password -dir "Downloads\Y1S1_BlackIce" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 5188997148801516344 -username %username% -remember-password -dir "Downloads\Y1S1_BlackIce" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 7932785808040895147 -username %username% -remember-password -dir "Downloads\Y1S1_BlackIce" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )
 if %version%==2 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 2303064029242396590 -username %username% -remember-password -dir "Downloads\Y1S2_DustLine" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 2206497318678061176 -username %username% -remember-password -dir "Downloads\Y1S2_DustLine" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 2303064029242396590 -username %username% -remember-password -dir "Downloads\Y1S2_DustLine" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 2206497318678061176 -username %username% -remember-password -dir "Downloads\Y1S2_DustLine" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )
 if %version%==3 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 5819137024728546741 -username %username% -remember-password -dir "Downloads\Y1S3_SkullRain" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 5851804596427790505 -username %username% -remember-password -dir "Downloads\Y1S3_SkullRain" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 5819137024728546741 -username %username% -remember-password -dir "Downloads\Y1S3_SkullRain" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 5851804596427790505 -username %username% -remember-password -dir "Downloads\Y1S3_SkullRain" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==4 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 3576607363557872807 -username %username% -remember-password -dir "Downloads\Y1S4_RedCrow" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 8569920171217002292 -username %username% -remember-password -dir "Downloads\Y1S4_RedCrow" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 3576607363557872807 -username %username% -remember-password -dir "Downloads\Y1S4_RedCrow" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 8569920171217002292 -username %username% -remember-password -dir "Downloads\Y1S4_RedCrow" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )
 if %version%==5 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 2248734317261478192 -username %username% -remember-password -dir "Downloads\Y2S1_VelvetShell" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 8006071763917433748 -username %username% -remember-password -dir "Downloads\Y2S1_VelvetShell" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 2248734317261478192 -username %username% -remember-password -dir "Downloads\Y2S1_VelvetShell" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 8006071763917433748 -username %username% -remember-password -dir "Downloads\Y2S1_VelvetShell" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )
 if %version%==6 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 5875987479498297665 -username %username% -remember-password -dir "Downloads\Y2S2_Health" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 708773000306432190 -username %username% -remember-password -dir "Downloads\Y2S2_Health" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 5875987479498297665 -username %username% -remember-password -dir "Downloads\Y2S2_Health" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 708773000306432190 -username %username% -remember-password -dir "Downloads\Y2S2_Health" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )
 if %version%==7 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 6708129824495912434 -username %username% -remember-password -dir "Downloads\Y2S3_BloodOrchid" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 1613631671988840841 -username %username% -remember-password -dir "Downloads\Y2S3_BloodOrchid" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 6708129824495912434 -username %username% -remember-password -dir "Downloads\Y2S3_BloodOrchid" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 1613631671988840841 -username %username% -remember-password -dir "Downloads\Y2S3_BloodOrchid" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==8 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 2066250193950057921 -username %username% -remember-password -dir "Downloads\Y2S4_WhiteNoise" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 2783803489764777627 -username %username% -remember-password -dir "Downloads\Y2S4_WhiteNoise" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 2066250193950057921 -username %username% -remember-password -dir "Downloads\Y2S4_WhiteNoise" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 2783803489764777627 -username %username% -remember-password -dir "Downloads\Y2S4_WhiteNoise" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )
 if %version%==9 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 5071357104726974256 -username %username% -remember-password -dir "Downloads\Y3S1_Chimera" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 4701787239566783972 -username %username% -remember-password -dir "Downloads\Y3S1_Chimera" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 5071357104726974256 -username %username% -remember-password -dir "Downloads\Y3S1_Chimera" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 4701787239566783972 -username %username% -remember-password -dir "Downloads\Y3S1_Chimera" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==10 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 8312108283310615233 -username %username% -remember-password -dir "Downloads\Y3S2_ParaBellum" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 8765715607275074515 -username %username% -remember-password -dir "Downloads\Y3S2_ParaBellum" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 8312108283310615233 -username %username% -remember-password -dir "Downloads\Y3S2_ParaBellum" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 8765715607275074515 -username %username% -remember-password -dir "Downloads\Y3S2_ParaBellum" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )
 if %version%==11 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 7286067994760020542 -username %username% -remember-password -dir "Downloads\Y3S3_GrimSky" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 4133951394045241747 -username %username% -remember-password -dir "Downloads\Y3S3_GrimSky" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 7286067994760020542 -username %username% -remember-password -dir "Downloads\Y3S3_GrimSky" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 4133951394045241747 -username %username% -remember-password -dir "Downloads\Y3S3_GrimSky" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )
 if %version%==12 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 6502258854032233436 -username %username% -remember-password -dir "Downloads\Y3S4_WindBastion" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 7659555540733025386 -username %username% -remember-password -dir "Downloads\Y3S4_WindBastion" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 6502258854032233436 -username %username% -remember-password -dir "Downloads\Y3S4_WindBastion" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 7659555540733025386 -username %username% -remember-password -dir "Downloads\Y3S4_WindBastion" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )
 if %version%==13 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 8356277316976403078 -username %username% -remember-password -dir "Downloads\Y4S1_BurntHorizon" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 5935578581006804383 -username %username% -remember-password -dir "Downloads\Y4S1_BurntHorizon" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 8356277316976403078 -username %username% -remember-password -dir "Downloads\Y4S1_BurntHorizon" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 5935578581006804383 -username %username% -remember-password -dir "Downloads\Y4S1_BurntHorizon" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==14 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 693082837425613508 -username %username% -remember-password -dir "Downloads\Y4S2_PhantomSight" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 5408324128694463720 -username %username% -remember-password -dir "Downloads\Y4S2_PhantomSight" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 693082837425613508 -username %username% -remember-password -dir "Downloads\Y4S2_PhantomSight" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 5408324128694463720 -username %username% -remember-password -dir "Downloads\Y4S2_PhantomSight" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==15 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 7309481042294838052 -username %username% -remember-password -dir "Downloads\Y4S3_EmberRise" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 5429930338066808153 -username %username% -remember-password -dir "Downloads\Y4S3_EmberRise" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 7309481042294838052 -username %username% -remember-password -dir "Downloads\Y4S3_EmberRise" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 5429930338066808153 -username %username% -remember-password -dir "Downloads\Y4S3_EmberRise" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )
 if %version%==16 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 299124516841461614 -username %username% -remember-password -dir "Downloads\Y4S4_ShiftingTides" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 1842268638395240106 -username %username% -remember-password -dir "Downloads\Y4S4_ShiftingTides" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 299124516841461614 -username %username% -remember-password -dir "Downloads\Y4S4_ShiftingTides" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 1842268638395240106 -username %username% -remember-password -dir "Downloads\Y4S4_ShiftingTides" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )
 if %version%==17 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377237 -manifest 8007091753837589034 -username %username% -remember-password -dir "Downloads\Y5S1_VoidEdge" -validate -max-servers 15 -max-downloads 10
-    dotnet DepotDownloader.dll -app 359550 -depot 359551 -manifest 2810676266503656332 -username %username% -remember-password -dir "Downloads\Y5S1_VoidEdge" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 8007091753837589034 -username %username% -remember-password -dir "Downloads\Y5S1_VoidEdge" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 2810676266503656332 -username %username% -remember-password -dir "Downloads\Y5S1_VoidEdge" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
@@ -323,126 +384,126 @@ if /I %version%==back (
 )
 
 if %version%==0 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 8394183851197739981 -username %username% -remember-password -dir "Downloads\Y1S0_Original" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 8394183851197739981 -username %username% -remember-password -dir "Downloads\Y1S0_Original" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==1 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 3756048967966286899 -username %username% -remember-password -dir "Downloads\Y1S1_BlackIce" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 3756048967966286899 -username %username% -remember-password -dir "Downloads\Y1S1_BlackIce" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )   
 if %version%==2 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 1338949402410764888 -username %username% -remember-password -dir "Downloads\Y1S2_DustLine" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 1338949402410764888 -username %username% -remember-password -dir "Downloads\Y1S2_DustLine" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
 goto mainmenu
 )
 if %version%==3 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 3267970968757091405 -username %username% -remember-password -dir "Downloads\Y1S3_SkullRain" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 3267970968757091405 -username %username% -remember-password -dir "Downloads\Y1S3_SkullRain" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==4 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 1825939060444887403 -username %username% -remember-password -dir "Downloads\Y1S4_RedCrow" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 1825939060444887403 -username %username% -remember-password -dir "Downloads\Y1S4_RedCrow" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==5 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 3196596628759979362 -username %username% -remember-password -dir "Downloads\Y2S1_VelvetShell" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 3196596628759979362 -username %username% -remember-password -dir "Downloads\Y2S1_VelvetShell" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==6 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 7497579858536910279 -username %username% -remember-password -dir "Downloads\Y2S2_Health" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 7497579858536910279 -username %username% -remember-password -dir "Downloads\Y2S2_Health" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==7 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 6420469519659049757 -username %username% -remember-password -dir "Downloads\Y2S3_BloodOrchid" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 6420469519659049757 -username %username% -remember-password -dir "Downloads\Y2S3_BloodOrchid" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==8 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 1118649577165385479 -username %username% -remember-password -dir "Downloads\Y2S4_WhiteNoise" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 1118649577165385479 -username %username% -remember-password -dir "Downloads\Y2S4_WhiteNoise" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==9 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 1668513364192382097 -username %username% -remember-password -dir "Downloads\Y3S1_Chimera" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 1668513364192382097 -username %username% -remember-password -dir "Downloads\Y3S1_Chimera" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==10 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 204186978012641075 -username %username% -remember-password -dir "Downloads\Y3S2_ParaBellum" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 204186978012641075 -username %username% -remember-password -dir "Downloads\Y3S2_ParaBellum" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==11 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 3378966402050009606 -username %username% -remember-password -dir "Downloads\Y3S3_GrimSky" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 3378966402050009606 -username %username% -remember-password -dir "Downloads\Y3S3_GrimSky" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==12 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 2243348760021617592 -username %username% -remember-password -dir "Downloads\Y3S4_WindBastion" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 2243348760021617592 -username %username% -remember-password -dir "Downloads\Y3S4_WindBastion" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==13 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 888629411354320742 -username %username% -remember-password -dir "Downloads\Y4S1_BurntHorizon" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 888629411354320742 -username %username% -remember-password -dir "Downloads\Y4S1_BurntHorizon" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==14 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 4107080515154236795 -username %username% -remember-password -dir "Downloads\Y4S2_PhantomSight" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 4107080515154236795 -username %username% -remember-password -dir "Downloads\Y4S2_PhantomSight" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==15 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 8340682081776225833 -username %username% -remember-password -dir "Downloads\Y4S3_EmberRise" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 8340682081776225833 -username %username% -remember-password -dir "Downloads\Y4S3_EmberRise" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==16 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 6048763664997452513 -username %username% -remember-password -dir "Downloads\Y4S4_ShiftingTides" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 6048763664997452513 -username %username% -remember-password -dir "Downloads\Y4S4_ShiftingTides" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
     goto mainmenu
 )
 if %version%==17 (
-    dotnet DepotDownloader.dll -app 359550 -depot 377239 -manifest 2194493692563107142 -username %username% -remember-password -dir "Downloads\Y5S1_VoidEdge" -validate -max-servers 15 -max-downloads 10
+    dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 2194493692563107142 -username %username% -remember-password -dir "Downloads\Y5S1_VoidEdge" -validate -max-servers 15 -max-downloads 10
     pause
     cls
     echo Download complete!
@@ -1106,7 +1167,7 @@ if %version%==17 (
 
 cls
 set /p username="Enter Steam Username:"
-dotnet DepotDownloader.dll -app 359550 -depot %depot% -manifest %manifest% -username %username% -remember-password -dir "Downloads\%dir%_Extra_Languages" -validate -max-servers 15 -max-downloads 10
+dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot %depot% -manifest %manifest% -username %username% -remember-password -dir "Downloads\%dir%_Extra_Languages" -validate -max-servers 15 -max-downloads 10
 pause
 cls
 echo Download complete!
