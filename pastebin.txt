@@ -1,0 +1,26 @@
+I'm going to show you how to download the leaked Rainbow Six Siege TS build with year 5 season 3 and 4.
+Currently its being hoarded by a couple of losers so we are gonna share it with the community.
+They are desperate for attention so expect some really shitty videos covered in ugly ass watermarks.
+Luckily for you I'm giving you the keys to their autism. 
+Fuck donald trump btw :)
+ 
+You will need a STEAM account with Rainbow Six Siege. If you don't have one wait for someone to upload this leak or fuck off.
+  
+Once the game is downloaded you will need to put the PLAZA files located in your folder in the game files.
+If it prompts you to replace files, replace them
+then replace your test server files with the leaked files. 
+When that is done delete rainbowsix_be.exe, make a copy of rainbowsix.exe and rename it to rainbowsix_be.exe.
+ 
+launch the game and open cheat engine.
+attach to rainbowsix_be.exe in cheat engine.
+add this address as a byte "[RainbowSix_BE.exe+4CA8B10]+70C" without the quotes
+set the byte to zero and you should be able to bypass the start screen.
+ 
+Enjoy playing the early season 3 and 4!
+if you are too dummy to follow this then just download all the shit here. you still need to add your steam username to the batch file download_Y5S3-4_Leak.bat
+https://anonfiles.com/N4ge37B3oa/Y5S3-4_download_pack2_rar
+ 
+ 
+Love, gamer felonies
+https://www.youtube.com/channel/UCylTeQ-Qr_zuvK6ofQUq55Q/
+https://discord.gg/stqzsDK
