@@ -1,7 +1,8 @@
-::1.1
+::1.2
 @echo off
 setlocal enableextensions
 set rootdir=%cd%
+set username=
 
 if not exist .Assets (
     mkdir .Assets
@@ -12,7 +13,7 @@ if not exist .Assets (
     mkdir .Assets
 )
 cd .Assets
-curl -s -L "https://raw.githubusercontent.com/Ancientkingg/r6manifest/master/R6Downloader.Bat" --output dontget.rickrolled
+curl -s -L "https://raw.githubusercontent.com/Ancientkingg/r6manifest/master/R6Downloader.bat" --output dontget.rickrolled
 set /p first=< dontget.rickrolled
 del /f dontget.rickrolled 
 cd %rootdir%
@@ -37,7 +38,7 @@ if /I "%choice%"=="N" goto dotnetcheck
 
 :update
 set output=%~nx0
-curl -L "https://raw.githubusercontent.com/Ancientkingg/r6manifest/master/R6Downloader.Bat" --output %output%
+curl -L "https://raw.githubusercontent.com/Ancientkingg/r6manifest/master/R6Downloader.bat" --output %output%
 ping localhost -n 2 >NUL
 cls
 echo Update completed! Please restart your R6Downloader...
@@ -117,7 +118,7 @@ goto depotcheck
 
 :mainmenu
 cls
-MODE CON COLS=103 LINES=13
+MODE CON COLS=103 LINES=15
 echo                                    Rainbow Six Siege Downloader
 echo                 For any help/feedback join us on our Discord: https://discord.gg/FJccJNd
 echo                                   You need to own a Steam copy!
@@ -128,7 +129,9 @@ echo ---------------------------------------------------------------------------
 echo 1 = Entire Game                     
 echo 2 = HD Textures                     
 echo 3 = Extra Languages                 
-echo 4 = Definitely not get rickrolled   
+echo 4 = Definitely not get rickrolled 
+echo 5 = Set your steam login name
+echo exit = To exit the Game downloader  
 echo -------------------------------------------------------------------------------------------------------
 set /p option="Enter Selection:"
 
@@ -148,12 +151,20 @@ if %option%==4 (
     cls
     goto hack
 )
+if %option%==5 (
+    cls
+    goto loginname
+)
 if /I %option%==exit (
     exit
 )
 goto mainmenu
 
-
+:loginname
+Title R6 Game Downloader - Enter your steam login name
+set username=
+set /p username="Enter your steam login name: "
+goto mainmenu
 
 
 
@@ -163,7 +174,7 @@ title Rainbow Six Siege Downloader - Game Downloads
 mode con: cols=67 lines=36
 echo Select the version of Rainbow Six Siege you would like to download.
 echo -------------------------------------------------------------------
-echo [0m1 = Vanilla 1.0
+echo [0m0 = Vanilla 1.0
 echo.
 echo Year 1:
 echo [0m1 = [96mBlack Ice (Y1S1)
@@ -200,13 +211,19 @@ set /p version="Enter Version:"
 if /I %version%==back (
     goto mainmenu
 ) else (
-    set /p username="Enter Steam Username:"
+    if defined username (goto siegeversion) else (
+        set /p username="Enter Steam Username:"
+    )
 )
 
+:siegeversion
 if %version%==0 (
     dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 8358812283631269928 -username %username% -remember-password -dir "Downloads\Y1S0_Original" -validate -max-servers 15 -max-downloads 10
     dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 359551 -manifest 3893422760579204530 -username %username% -remember-password -dir "Downloads\Y1S0_Original" -validate -max-servers 15 -max-downloads 10
-    goto warning
+    pause
+    cls
+    echo Download complete!
+    goto mainmenu
 )
 if %version%==1 (
     set command1=dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377237 -manifest 5188997148801516344 -username %username% -remember-password -dir "Downloads\Y1S1_BlackIce" -validate -max-servers 15 -max-downloads 10
@@ -362,9 +379,12 @@ set /p version="Enter Version:"
 if /I %version%==back (
     goto mainmenu
 ) else (
-    set /p username="Enter Steam Username:"
+    if defined username (goto siegehdtextures else (
+        set /p username="Enter Steam Username:"
+    )
 )
 
+:siegehdtextures
 if %version%==0 (
     dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot 377239 -manifest 8394183851197739981 -username %username% -remember-password -dir "Downloads\Y1S0_Original" -validate -max-servers 15 -max-downloads 10
     pause
@@ -1148,7 +1168,10 @@ if %version%==17 (
 )
 
 cls
-set /p username="Enter Steam Username:"
+if defined username (goto languagedownload) else (
+    set /p username="Enter Steam Username:"
+)
+:languagedownload
 dotnet .Assets\DepotDownloader\DepotDownloader.dll -app 359550 -depot %depot% -manifest %manifest% -username %username% -remember-password -dir "Downloads\%dir%_Extra_Languages" -validate -max-servers 15 -max-downloads 10
 pause
 cls
